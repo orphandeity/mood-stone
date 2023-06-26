@@ -1,7 +1,8 @@
-import EntryCard from '@/components/EntryCard'
-import NewEntry from '@/components/NewEntry'
 import { getUserByClerkID } from '@/lib/auth'
 import { prisma } from '@/lib/db'
+import Link from 'next/link'
+import EntryCard from '@/components/EntryCard'
+import NewEntry from '@/components/NewEntry'
 
 async function getEntries() {
   const user = await getUserByClerkID()
@@ -30,7 +31,9 @@ export default async function JournalPage() {
       <NewEntry />
       <div className="flex flex-wrap gap-4">
         {entries.map((entry) => (
-          <EntryCard key={entry.id} entry={entry} />
+          <Link href={`/journal/${entry.id}`} key={entry.id}>
+            <EntryCard entry={entry} />
+          </Link>
         ))}
       </div>
     </main>

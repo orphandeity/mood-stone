@@ -1,3 +1,4 @@
+import Editor from '@/components/Editor'
 import { getUserByClerkID } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 
@@ -23,11 +24,11 @@ export default async function EntryPage({
   const entry = await getEntry(params.id)
 
   return (
-    <main>
+    <main className="h-full">
       <div className="text-xs italic text-red-600">
         journal entry page {`{ id: ${params.id} }`}
       </div>
-      <div>{entry?.content}</div>
+      {entry && <Editor entry={entry} />}
     </main>
   )
 }
