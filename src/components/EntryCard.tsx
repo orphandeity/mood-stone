@@ -6,12 +6,13 @@ import {
   CardDescription,
   CardContent,
 } from './ui/card'
+import { formatDate } from '@/lib/utils'
 
 export default function EntryCard({ entry }: { entry: JournalEntry }) {
-  const date = new Date(entry.createdAt).toDateString()
+  const date = formatDate(entry)
 
   return (
-    <Card className="max-w-xs">
+    <Card>
       <CardHeader>
         <CardTitle>entry subject</CardTitle>
         <CardDescription>{date}</CardDescription>

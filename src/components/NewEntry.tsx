@@ -12,5 +12,9 @@ export default function NewEntry() {
     router.push(`/journal/${data.id}`)
   }
 
-  return <Button onClick={handleClick}>new journal entry</Button>
+  return (
+    <Button onClick={handleClick} size={'lg'} className="w-full">
+      new journal entry
+    </Button>
+  )
 }

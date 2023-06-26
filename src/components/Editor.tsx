@@ -25,12 +25,14 @@ export default function Editor({ entry }: { entry: JournalEntry }) {
   return (
     <div>
       {isLoading && (
-        <span className="animate-pulse text-sm text-teal-600">loading...</span>
+        <span className="animate-pulse text-sm text-teal-500">loading...</span>
       )}
       <Textarea
         rows={30}
         value={currentEditor}
         onChange={(e) => setCurrentEditor(e.target.value)}
+        placeholder="Type..."
+        className="bg-background text-foreground"
       />
     </div>
   )

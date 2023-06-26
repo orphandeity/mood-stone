@@ -72,7 +72,13 @@
   * {
     @apply border-border;
   }
-  body {
+  body,
+  main {
+    @apply bg-secondary text-secondary-foreground;
+  }
+
+  header,
+  aside {
     @apply bg-background text-foreground;
   }
 }

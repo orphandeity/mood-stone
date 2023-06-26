@@ -26,8 +26,7 @@ async function getEntries() {
 export default async function JournalPage() {
   const entries = await getEntries()
   return (
-    <main className="h-full bg-secondary p-4">
-      <div className="text-xs italic text-red-600">journal page</div>
+    <main className="h-full space-y-8 px-4 pt-8">
       <NewEntry />
       <div className="flex flex-wrap gap-4">
         {entries.map((entry) => (
