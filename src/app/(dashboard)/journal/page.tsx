@@ -26,9 +26,9 @@ async function getEntries() {
 export default async function JournalPage() {
   const entries = await getEntries()
   return (
-    <main className="h-full space-y-8 px-4 pt-8">
+    <main className="h-full space-y-8">
       <NewEntry />
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-4 gap-2">
         {entries.map((entry) => (
           <Link href={`/journal/${entry.id}`} key={entry.id}>
             <EntryCard entry={entry} />

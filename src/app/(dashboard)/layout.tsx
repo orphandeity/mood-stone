@@ -14,11 +14,14 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="grid h-screen w-screen grid-cols-5">
-      <aside className="h-full space-y-16 border-r px-2 pt-4">
-        <h1 className="text-center text-xl font-bold">moodstone</h1>
+    <div className="grid h-screen w-screen grid-cols-5 gap-2 p-4">
+      <aside className="h-full space-y-16">
+        <div className="ml-2 flex items-center gap-4">
+          <UserButton afterSignOutUrl="/" />
+          <h1 className="text-center text-xl font-bold underline">moodstone</h1>
+        </div>
         <nav>
-          <ul className="flex flex-col gap-8">
+          <ul className="flex flex-col items-center gap-8">
             {links.map((link) => (
               <li key={link.href}>
                 <Button
@@ -34,13 +37,7 @@ export default function DashboardLayout({
           </ul>
         </nav>
       </aside>
-      <div className="col-span-4 max-h-screen overflow-hidden">
-        <header className="flex items-center justify-between border-b px-2 py-4">
-          <span className="text-xs italic">dashboard layout</span>
-          <UserButton afterSignOutUrl="/" />
-        </header>
-        {children}
-      </div>
+      <div className="col-span-4 max-h-screen overflow-hidden">{children}</div>
     </div>
   )
 }
