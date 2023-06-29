@@ -74,10 +74,10 @@
   }
   body,
   main {
-    @apply bg-secondary text-secondary-foreground;
+    @apply bg-background text-foreground;
   }
 
   aside {
-    @apply rounded-md bg-background pt-4 text-foreground shadow;
+    @apply rounded-md bg-secondary pt-4 text-secondary-foreground shadow;
   }
 }

@@ -53,7 +53,7 @@ export default function Editor({ entry }: EditorProps) {
           value={currentEditor}
           onChange={(e) => setCurrentEditor(e.target.value)}
           placeholder="Type..."
-          className="bg-background text-foreground"
+          className="bg-white/90 text-neutral-950"
         />
       </div>
       <aside className="ml-2 h-full">
@@ -61,23 +61,26 @@ export default function Editor({ entry }: EditorProps) {
         <ul>
           <li className="border-b p-4">
             <Label htmlFor="subject">Subject</Label>
-            <Textarea rows={2} id="subject" />
+            <Textarea rows={2} id="subject" value={entry.analysis?.subject} />
           </li>
           <li className="border-b p-4">
             <Label htmlFor="summary">Summary</Label>
-            <Textarea rows={5} id="summary" />
+            <Textarea rows={5} id="summary" value={entry.analysis?.summary} />
           </li>
           <li className="border-b p-4">
             <Label htmlFor="mood">Mood</Label>
-            <Input type="text" id="mood" />
+            <Input type="text" id="mood" value={entry.analysis?.mood} />
           </li>
           <li className="border-b p-4">
             <Label htmlFor="color">Color</Label>
-            <Input type="text" id="color" />
+            <Input type="text" id="color" value={entry.analysis?.color} />
           </li>
           <li className="flex items-center gap-4 border-b p-4">
             <Label htmlFor="negative">Negative</Label>
-            <Checkbox id="negative" />
+            <Checkbox
+              id="negative"
+              checked={entry.analysis?.negative ?? false}
+            />
           </li>
         </ul>
       </aside>

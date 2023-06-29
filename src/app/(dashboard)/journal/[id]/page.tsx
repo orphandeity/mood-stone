@@ -1,8 +1,6 @@
-import type { Analysis, JournalEntry } from '@prisma/client'
 import Editor from '@/components/Editor'
 import { getUserByClerkID } from '@/lib/auth'
 import { prisma } from '@/lib/db'
-import { formatDate } from '@/lib/utils'
 
 async function getEntry(id: string) {
   const user = await getUserByClerkID()

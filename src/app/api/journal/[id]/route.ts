@@ -1,3 +1,4 @@
+import { analyze } from '@/lib/ai'
 import { getUserByClerkID } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
@@ -21,7 +22,21 @@ export async function PATCH(
     },
   })
 
+  const analysisResponse = await analyze(updatedEntry.content)
+
+  const analysis = await prisma.analysis.upsert({
+    where: {
+      entryId: updatedEntry.id,
+    },
+    create: {
+      userId: user.id,
+      entryId: updatedEntry.id,
+      ...analysisResponse,
+    },
+    update: analysisResponse,
+  })
+
   revalidatePath('/journal/[id]')
 
-  return NextResponse.json({ data: updatedEntry })
+  return NextResponse.json({ data: { ...updatedEntry, analysis } })
 }
