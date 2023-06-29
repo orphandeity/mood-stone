@@ -78,6 +78,6 @@
   }
 
   aside {
-    @apply rounded-md bg-secondary pt-4 text-secondary-foreground shadow;
+    @apply rounded-md border bg-secondary pt-4 text-secondary-foreground shadow;
   }
 }

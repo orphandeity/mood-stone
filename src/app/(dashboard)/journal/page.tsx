@@ -14,6 +14,9 @@ async function getEntries() {
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        analysis: true,
+      },
     })
 
     return entries
@@ -25,6 +28,7 @@ async function getEntries() {
 
 export default async function JournalPage() {
   const entries = await getEntries()
+
   return (
     <main className="h-full space-y-8">
       <NewEntry />

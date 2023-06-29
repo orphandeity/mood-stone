@@ -61,17 +61,30 @@ export default function Editor({ entry }: EditorProps) {
         <ul>
           <li className="border-b p-4">
             <Label htmlFor="subject">Subject</Label>
-            <Textarea rows={2} id="subject" value={entry.analysis?.subject} />
+            <Textarea
+              rows={2}
+              id="subject"
+              value={entry.analysis?.subject}
+              className="bg-background"
+            />
           </li>
           <li className="border-b p-4">
             <Label htmlFor="summary">Summary</Label>
-            <Textarea rows={5} id="summary" value={entry.analysis?.summary} />
+            <Textarea
+              rows={5}
+              id="summary"
+              value={entry.analysis?.summary}
+              className="bg-background"
+            />
           </li>
           <li className="border-b p-4">
             <Label htmlFor="mood">Mood</Label>
             <Input type="text" id="mood" value={entry.analysis?.mood} />
           </li>
-          <li className="border-b p-4">
+          <li
+            className="border-b p-4"
+            style={{ backgroundColor: entry.analysis?.color }}
+          >
             <Label htmlFor="color">Color</Label>
             <Input type="text" id="color" value={entry.analysis?.color} />
           </li>

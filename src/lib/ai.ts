@@ -6,7 +6,9 @@ import { LLMChain } from 'langchain/chains'
 
 const parser = StructuredOutputParser.fromZodSchema(
   z.object({
-    subject: z.string().describe('the subject of the journal entry'),
+    subject: z
+      .string()
+      .describe('the subject of the journal entry expressed in two words'),
     summary: z.string().describe('quick summary of the entire journal entry'),
     mood: z
       .string()

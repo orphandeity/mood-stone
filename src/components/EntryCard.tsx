@@ -1,4 +1,4 @@
-import type { JournalEntry } from '@prisma/client'
+import type { Analysis, JournalEntry } from '@prisma/client'
 import {
   Card,
   CardHeader,
@@ -8,17 +8,21 @@ import {
 } from './ui/card'
 import { formatDate } from '@/lib/utils'
 
-export default function EntryCard({ entry }: { entry: JournalEntry }) {
+interface EntryCardProps {
+  entry: JournalEntry & { analysis: Analysis | null }
+}
+
+export default function EntryCard({ entry }: EntryCardProps) {
   const date = formatDate(entry)
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>entry subject</CardTitle>
+        <CardTitle>{entry.analysis?.subject}</CardTitle>
         <CardDescription>{date}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-xs italic text-red-600">{entry.id}</p>
+        <p>{entry.analysis?.summary}</p>
       </CardContent>
     </Card>
   )

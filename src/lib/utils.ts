@@ -8,5 +8,5 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(entry: JournalEntry): string {
   // turn the `createdAt` value into a formatted date string
-  return new Date(entry.createdAt).toDateString()
+  return new Date(entry.createdAt).toLocaleDateString()
 }
