@@ -16,12 +16,12 @@ export default function EntryCard({ entry }: EntryCardProps) {
   const date = formatDate(entry)
 
   return (
-    <Card>
+    <Card className="text-sm">
       <CardHeader>
         <CardTitle>{entry.analysis?.subject}</CardTitle>
-        <CardDescription>{date}</CardDescription>
+        <CardDescription className="text-xs">{date}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="text-xs">
         <p>{entry.analysis?.summary}</p>
       </CardContent>
     </Card>

@@ -30,14 +30,23 @@ export default async function JournalPage() {
   const entries = await getEntries()
 
   return (
-    <main className="h-full">
-      <NewEntry />
-      <div className="flex grid-cols-4 flex-col gap-2 lg:grid">
-        {entries.map((entry) => (
-          <Link href={`/journal/${entry.id}`} key={entry.id}>
-            <EntryCard entry={entry} />
-          </Link>
-        ))}
+    <main className="flex h-full flex-col">
+      <div className="grid place-content-center py-40">
+        <NewEntry />
+      </div>
+      <div>
+        <h2 className="text-xs font-semibold uppercase opacity-75">
+          Past Journal Entries:
+        </h2>
+        <ul className="mt-4 space-y-4">
+          {entries.map((entry) => (
+            <li key={entry.id}>
+              <Link href={`/journal/${entry.id}`}>
+                <EntryCard entry={entry} />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </main>
   )
