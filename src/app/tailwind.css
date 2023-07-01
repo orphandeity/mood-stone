@@ -72,6 +72,11 @@
   * {
     @apply border-border;
   }
+
+  body {
+    @apply mx-6 mt-2;
+  }
+
   body,
   main {
     @apply bg-background text-foreground;
