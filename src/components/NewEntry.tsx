@@ -13,7 +13,7 @@ export default function NewEntry() {
   }
 
   return (
-    <Button onClick={handleClick} size={'lg'} className="text-lg">
+    <Button onClick={handleClick} size={'lg'}>
       new journal entry
     </Button>
   )

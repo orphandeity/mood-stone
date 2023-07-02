@@ -3,6 +3,8 @@ import { prisma } from '@/lib/db'
 import Link from 'next/link'
 import EntryCard from '@/components/EntryCard'
 import NewEntry from '@/components/NewEntry'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 async function getEntries() {
   const user = await getUserByClerkID()
@@ -31,14 +33,24 @@ export default async function JournalPage() {
 
   return (
     <main className="flex h-full flex-col">
-      <div className="grid place-content-center py-40">
-        <NewEntry />
+      <div className="my-8 grid gap-4 sm:grid-cols-2">
+        <div className="grid aspect-square place-content-center rounded-xl border border-border">
+          <NewEntry />
+        </div>
+        <div className="grid aspect-square place-content-center rounded-xl border border-border">
+          <form className="space-y-2">
+            <Input type="text" />
+            <Button variant={'secondary'} size={'default'} className="w-full">
+              ask
+            </Button>
+          </form>
+        </div>
       </div>
       <div>
         <h2 className="text-xs font-semibold uppercase opacity-75">
           Past Journal Entries:
         </h2>
-        <ul className="mt-4 space-y-4">
+        <ul className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {entries.map((entry) => (
             <li key={entry.id}>
               <Link href={`/journal/${entry.id}`}>

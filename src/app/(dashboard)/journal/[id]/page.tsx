@@ -1,6 +1,8 @@
-import Editor from '@/components/Editor'
 import { getUserByClerkID } from '@/lib/auth'
 import { prisma } from '@/lib/db'
+import { formatDate } from '@/lib/utils'
+import Editor from '@/components/Editor'
+import EntryAnalysis from '@/components/Analysis'
 
 async function getEntry(id: string) {
   const user = await getUserByClerkID()
@@ -26,5 +28,9 @@ export default async function EntryPage({
 }) {
   const entry = await getEntry(params.id)
 
-  return <main className="h-full">{entry && <Editor entry={entry} />}</main>
+  return entry && entry.analysis ? (
+    <main className="h-full">
+      <Editor entry={entry} />
+    </main>
+  ) : null
 }

@@ -1,8 +1,4 @@
-import { Analysis } from '@prisma/client'
-import { Checkbox } from './ui/checkbox'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
-import { Textarea } from './ui/textarea'
+import type { Analysis } from '@prisma/client'
 import {
   Sheet,
   SheetContent,
@@ -13,17 +9,15 @@ import {
 } from './ui/sheet'
 import { Button } from './ui/button'
 
-export default function EntryAnalysis({
-  analysis,
-}: {
-  analysis: Analysis | null
-}) {
+export default function EntryAnalysis({ analysis }: { analysis: Analysis }) {
+  const { subject, summary, mood, color, negative } = analysis
+
   const analysisData = [
-    { name: 'Subject', value: analysis?.subject },
-    { name: 'Summary', value: analysis?.summary },
-    { name: 'Mood', value: analysis?.mood },
-    { name: 'Color', value: analysis?.color },
-    { name: 'Negative', value: analysis?.negative ? 'false' : 'true' },
+    { name: 'Subject', value: subject },
+    { name: 'Summary', value: summary },
+    { name: 'Mood', value: mood },
+    { name: 'Color', value: color },
+    { name: 'Negative', value: negative ? 'false' : 'true' },
   ]
 
   return (
