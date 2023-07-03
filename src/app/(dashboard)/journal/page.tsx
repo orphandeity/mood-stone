@@ -5,6 +5,7 @@ import EntryCard from '@/components/EntryCard'
 import NewEntry from '@/components/NewEntry'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import Question from '@/components/Question'
 
 async function getEntries() {
   const user = await getUserByClerkID()
@@ -37,13 +38,8 @@ export default async function JournalPage() {
         <div className="grid aspect-square place-content-center rounded-xl border border-border">
           <NewEntry />
         </div>
-        <div className="grid aspect-square place-content-center rounded-xl border border-border">
-          <form className="space-y-2">
-            <Input type="text" />
-            <Button variant={'secondary'} size={'default'} className="w-full">
-              ask
-            </Button>
-          </form>
+        <div className="aspect-square">
+          <Question />
         </div>
       </div>
       <div>

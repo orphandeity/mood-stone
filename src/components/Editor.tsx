@@ -6,7 +6,8 @@ import { updateEntry } from '@/lib/api'
 import { formatDate } from '@/lib/utils'
 import { Textarea } from './ui/textarea'
 import EntryAnalysis from './Analysis'
-import { Loader2 } from 'lucide-react'
+import LoadingSpinner from './LoadingSpinner'
+
 import type { Analysis, JournalEntry } from '@prisma/client'
 
 interface EditorProps {
@@ -28,12 +29,6 @@ export default function Editor({ entry }: EditorProps) {
     },
   })
 
-  const Loading = () => (
-    <div className="absolute bottom-4 right-4 animate-spin text-emerald-400/75">
-      <Loader2 />
-    </div>
-  )
-
   return (
     <div className="mt-4 h-full space-y-4">
       <div className="flex items-center justify-between">
@@ -54,7 +49,7 @@ export default function Editor({ entry }: EditorProps) {
           placeholder="Type..."
           className="bg-white/90 text-neutral-950"
         />
-        {isLoading && <Loading />}
+        {isLoading && <LoadingSpinner />}
       </div>
     </div>
   )
