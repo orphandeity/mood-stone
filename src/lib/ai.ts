@@ -8,7 +8,7 @@ import { LLMChain, loadQARefineChain } from 'langchain/chains'
 import { MemoryVectorStore } from 'langchain/vectorstores/memory'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 
-const parser = StructuredOutputParser.fromZodSchema(
+const analysisParser = StructuredOutputParser.fromZodSchema(
   z.object({
     subject: z
       .string()
@@ -35,8 +35,8 @@ const parser = StructuredOutputParser.fromZodSchema(
   })
 )
 
-async function getPrompt(content: string) {
-  const format_instructions = parser.getFormatInstructions()
+async function analysisPrompt(content: string) {
+  const format_instructions = analysisParser.getFormatInstructions()
   const template =
     'Analyze the following journal entry.  Follow the instructions and format the response to match the format instructions, no matter what!\n{format_instructions}\n{entry}'
 
@@ -54,12 +54,12 @@ async function getPrompt(content: string) {
 }
 
 export async function analyze(content: string) {
-  const input = await getPrompt(content)
+  const input = await analysisPrompt(content)
   const model = new OpenAI({ temperature: 0, modelName: 'gpt-3.5-turbo' })
   const result = await model.call(input)
 
   try {
-    return parser.parse(result)
+    return analysisParser.parse(result)
   } catch (error) {
     throw new Error('something went wrong')
   }
@@ -73,6 +73,7 @@ export async function qa(
   const embeddings = new OpenAIEmbeddings()
   const model = new OpenAI({ temperature: 0, modelName: 'gpt-3.5-turbo' })
   const chain = loadQARefineChain(model)
+
   // Create the documents and the vector store
   const docs = entries.map((entry) => {
     return new Document({
@@ -81,9 +82,10 @@ export async function qa(
     })
   })
   const store = await MemoryVectorStore.fromDocuments(docs, embeddings)
+
   // Select the relevant documents
   const relevantDocs = await store.similaritySearch(question)
-  console.log(relevantDocs)
+
   // Call the chain
   const res = await chain.call({
     input_documents: relevantDocs,
