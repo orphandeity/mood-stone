@@ -1,32 +1,26 @@
 import { getUserByClerkID } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import Link from 'next/link'
-import EntryCard from '@/components/EntryCard'
-import NewEntry from '@/components/NewEntry'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 import Question from '@/components/Question'
+import NewEntry from '@/components/NewEntry'
+import EntryCard from '@/components/EntryCard'
+import CurrentDate from '@/components/CurrentDate'
 
 async function getEntries() {
   const user = await getUserByClerkID()
-  if (user) {
-    const entries = await prisma.journalEntry.findMany({
-      where: {
-        userId: user.id,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        analysis: true,
-      },
-    })
+  const entries = await prisma.journalEntry.findMany({
+    where: {
+      userId: user.id,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      analysis: true,
+    },
+  })
 
-    return entries
-  } else {
-    // this will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
+  return entries
 }
 
 export default async function JournalPage() {
@@ -34,11 +28,16 @@ export default async function JournalPage() {
 
   return (
     <main className="flex h-full flex-col">
-      <div className="my-8 grid gap-4 sm:grid-cols-2">
-        <div className="grid aspect-square place-content-center rounded-xl border border-border">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="flex aspect-square flex-col items-center justify-center gap-2">
+          <CurrentDate />
           <NewEntry />
         </div>
-        <div className="aspect-square">
+        <div className="aspect-square space-y-4">
+          <p className="text-lg font-thin">
+            Ask questions about your life and get answers based on your own
+            journal entries!
+          </p>
           <Question />
         </div>
       </div>

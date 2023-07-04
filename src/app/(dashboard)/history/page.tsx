@@ -23,7 +23,7 @@ export default async function HistoryPage() {
 
   return (
     <main>
-      <h2 className="mt-8 text-5xl">History Page</h2>
+      <h2 className="mt-8 text-5xl">History</h2>
       <p className="text-lg font-thin">{`Average Sentiment: ${avg}`}</p>
       <div className="h-[300px]">
         <HistoryChart data={analyses} />

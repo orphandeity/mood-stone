@@ -24,7 +24,7 @@ export default function Question() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="space-y-2">
+      <form onSubmit={handleSubmit} className="flex gap-2">
         <Input
           type="text"
           disabled={loading}
@@ -32,14 +32,8 @@ export default function Question() {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
         />
-        <Button
-          variant={'secondary'}
-          size={'default'}
-          type="submit"
-          disabled={loading}
-          className="w-full"
-        >
-          ask
+        <Button variant={'outline'} type="submit" disabled={loading}>
+          Ask
         </Button>
       </form>
       {loading && <LoadingSpinner />}

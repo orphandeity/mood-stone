@@ -27,7 +27,7 @@ function CustomTooltip({ payload, label, active }) {
           <CardTitle>{dateLabel}</CardTitle>
           <CardDescription className="flex items-center gap-2 uppercase">
             <div
-              className="h-2 w-2 rounded-full"
+              className="h-4 w-4 rounded-full"
               style={{ background: analysis.color }}
             />
             <p>{analysis.mood}</p>
