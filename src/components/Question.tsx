@@ -37,7 +37,7 @@ export default function Question() {
         </Button>
       </form>
       {loading && <LoadingSpinner />}
-      {answer && <div className="mt-4 text-xs italic">{answer}</div>}
+      {answer && <div className="mt-4 text-sm italic">{answer}</div>}
     </>
   )
 }

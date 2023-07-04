@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     },
   })
 
-  const answer = await qa(question, entries)
+  const response = await qa(question, entries)
 
-  return NextResponse.json({ data: answer })
+  return NextResponse.json({ data: response })
 }

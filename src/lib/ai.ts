@@ -4,7 +4,8 @@ import { OpenAI } from 'langchain/llms/openai'
 import { PromptTemplate } from 'langchain/prompts'
 import { StructuredOutputParser } from 'langchain/output_parsers'
 import { Document } from 'langchain/document'
-import { LLMChain, loadQARefineChain } from 'langchain/chains'
+import { LLMChain, RetrievalQAChain, loadQARefineChain } from 'langchain/chains'
+import { HNSWLib } from 'langchain/vectorstores/hnswlib'
 import { MemoryVectorStore } from 'langchain/vectorstores/memory'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 
@@ -61,7 +62,7 @@ export async function analyze(content: string) {
   try {
     return analysisParser.parse(result)
   } catch (error) {
-    throw new Error('something went wrong')
+    throw new Error('there was an error parsing the analysis')
   }
 }
 
@@ -69,28 +70,25 @@ export async function qa(
   question: string,
   entries: Pick<JournalEntry, 'id' | 'createdAt' | 'content'>[]
 ): Promise<string> {
-  // Create the models and chain
-  const embeddings = new OpenAIEmbeddings()
   const model = new OpenAI({ temperature: 0, modelName: 'gpt-3.5-turbo' })
-  const chain = loadQARefineChain(model)
+  const embeddings = new OpenAIEmbeddings()
 
-  // Create the documents and the vector store
   const docs = entries.map((entry) => {
     return new Document({
       pageContent: entry.content,
       metadata: { id: entry.id, createdAt: entry.createdAt },
     })
   })
+
   const store = await MemoryVectorStore.fromDocuments(docs, embeddings)
 
-  // Select the relevant documents
-  const relevantDocs = await store.similaritySearch(question)
-
-  // Call the chain
-  const res = await chain.call({
-    input_documents: relevantDocs,
-    question,
+  const chain = new RetrievalQAChain({
+    combineDocumentsChain: loadQARefineChain(model),
+    retriever: store.asRetriever(),
+    inputKey: 'question',
   })
+
+  const res = await chain.call({ question })
 
   return res.output_text
 }
