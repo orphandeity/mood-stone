@@ -26,7 +26,7 @@ async function createNewUser() {
     redirect('/journal')
   }
   // not signed in
-  redirect('/sign-in')
+  redirect('/sign-up')
 }
 
 export default async function NewUser() {

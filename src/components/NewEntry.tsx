@@ -14,7 +14,7 @@ export default function NewEntry() {
 
   return (
     <Button onClick={handleClick} size={'lg'}>
-      New Journal Entry
+      New Entry
     </Button>
   )
 }

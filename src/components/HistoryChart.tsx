@@ -19,7 +19,7 @@ function CustomTooltip({ payload, label, active }) {
     day: 'numeric',
   })
 
-  if (active) {
+  if (active && payload) {
     const analysis = payload[0].payload
     return (
       <Card>
@@ -51,7 +51,7 @@ export default function HistoryChart({ data }: { data: Analysis[] }) {
           strokeWidth={2}
           activeDot={{ r: 8 }}
         />
-        <XAxis dataKey="createdAt" />
+        {/* <XAxis dataKey="createdAt" /> */}
         <Tooltip
           content={
             <CustomTooltip

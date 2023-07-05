@@ -24,6 +24,15 @@ export default function Question() {
 
   return (
     <>
+      {loading && <LoadingSpinner />}
+      {answer ? (
+        <div className="mt-4 text-sm italic">{answer}</div>
+      ) : (
+        <p className="text-lg font-thin">
+          Ask questions about your life and get answers based on your own
+          journal entries!
+        </p>
+      )}
       <form onSubmit={handleSubmit} className="flex gap-2">
         <Input
           type="text"
@@ -36,8 +45,6 @@ export default function Question() {
           Ask
         </Button>
       </form>
-      {loading && <LoadingSpinner />}
-      {answer && <div className="mt-4 text-sm italic">{answer}</div>}
     </>
   )
 }

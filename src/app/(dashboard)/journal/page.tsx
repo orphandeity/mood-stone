@@ -6,7 +6,7 @@ import NewEntry from '@/components/NewEntry'
 import EntryCard from '@/components/EntryCard'
 import CurrentDate from '@/components/CurrentDate'
 
-async function getEntries() {
+async function getData() {
   const user = await getUserByClerkID()
   const entries = await prisma.journalEntry.findMany({
     where: {
@@ -20,24 +20,23 @@ async function getEntries() {
     },
   })
 
-  return entries
+  return { entries }
 }
 
 export default async function JournalPage() {
-  const entries = await getEntries()
+  const { entries } = await getData()
 
   return (
-    <main className="flex h-full flex-col">
+    <main className="flex h-full flex-col gap-4">
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        <div className="flex aspect-square flex-col items-center justify-center gap-2">
-          <CurrentDate />
+        <div className="flex aspect-square flex-col gap-8">
+          <div>
+            <h2 className="text-5xl">Journal</h2>
+            <CurrentDate />
+          </div>
           <NewEntry />
         </div>
-        <div className="aspect-square space-y-4">
-          <p className="text-lg font-thin">
-            Ask questions about your life and get answers based on your own
-            journal entries!
-          </p>
+        <div className="flex aspect-square flex-col justify-end gap-4 rounded-xl bg-secondary p-2">
           <Question />
         </div>
       </div>
